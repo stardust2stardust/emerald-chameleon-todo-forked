@@ -3,15 +3,11 @@ import { useState } from 'react'
 
 // type Props = {}
 
-// Clicking on the Add Category button should hide the button
-// and display an input field with 2 buttons next to it: Ok and Cancel
-
 const AddCategory = () => {
-  //.. track state of Add Category button
+  // state of Add Category button
   const [isClicked, setIsClicked] = useState(false)
 
-  // if clicked, Add Category button is hidden and Input field with ok/cancel buttons is displayed
-
+  // isClicked state changes when clicking on Add Category, Ok, or Cancel buttons
   const handleClick = () => {
     console.log('testing Add New')
     setIsClicked(!isClicked)
