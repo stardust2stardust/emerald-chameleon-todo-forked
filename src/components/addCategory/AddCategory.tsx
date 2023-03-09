@@ -18,13 +18,14 @@ const AddCategory = () => {
     console.log('you clicked Ok')
     handleClick()
 
+    // get value of text input
+    const newCategoryValue = document.getElementById(
+      'new-category-text'
+    ) as HTMLInputElement
+    console.log(newCategoryValue.value)
     // fetch Category List
 
-    // check that Category does not exist
-
-    // add Category to exising List
-
-    // display new Category in UI
+    // add Category to exising List ()
   }
 
   return (
@@ -33,7 +34,12 @@ const AddCategory = () => {
         <div className="new-category-input-wrapper">
           <input id="new-category-text" type="text" />
           <div className="new-category-input-buttons">
-            <button className="btn-ok" onClick={addToCategoryList} type="submit">
+            <button
+              id="okBtn"
+              className="btn-ok"
+              onClick={addToCategoryList}
+              type="submit"
+            >
               Ok
             </button>
             <button className="btn-cancel" onClick={handleClick}>
