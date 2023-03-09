@@ -10,8 +10,21 @@ const AddCategory = () => {
 
   // isClicked state changes when clicking on Add Category, Ok, or Cancel buttons
   const handleClick = () => {
-    console.log('testing Add New')
+    console.log('you clicked a button')
     setIsClicked(!isClicked)
+  }
+
+  const addToCategoryList = () => {
+    console.log('you clicked Ok')
+    handleClick()
+
+    // fetch Category List
+
+    // check that Category does not exist
+
+    // add Category to exising List
+
+    // display new Category in UI
   }
 
   return (
@@ -20,7 +33,7 @@ const AddCategory = () => {
         <div className="new-category-input-wrapper">
           <input id="new-category-text" type="text" />
           <div className="new-category-input-buttons">
-            <button className="btn-ok" onClick={handleClick} type="submit">
+            <button className="btn-ok" onClick={addToCategoryList} type="submit">
               Ok
             </button>
             <button className="btn-cancel" onClick={handleClick}>
