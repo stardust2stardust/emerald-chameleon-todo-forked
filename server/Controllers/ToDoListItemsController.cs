@@ -10,7 +10,7 @@ using HackWeekly_ToDoList.Models;
 
 namespace HackWeekly_ToDoList.Controllers
 {
-    [Tags("Item")]
+    [Tags("ToDoItem")]
     [Route("api/item")]
     [ApiController]
     public class ToDoListItemsController : ControllerBase

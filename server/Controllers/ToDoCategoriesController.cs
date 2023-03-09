@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HackWeekly_ToDoList.Data;
 using HackWeekly_ToDoList.Models;
+using NuGet.Protocol;
 
 namespace HackWeekly_ToDoList.Controllers
 {
@@ -27,6 +28,23 @@ namespace HackWeekly_ToDoList.Controllers
         public async Task<ActionResult<IEnumerable<ToDoCategory>>> GetCategory()
         {
             return await _context.Category.ToListAsync();
+        }
+
+        // GET: api/ToDoCategories/4
+        [Tags("ToDoList")]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<ToDoListResponse>>> GetCategoryItems(int id)
+        {
+            
+            var groupedToDoListItems = _context.TodoItems.Where(i => i.CategoryId == id)
+                                .Join(_context.Category,
+                                    i => i.CategoryId,
+                                    c => c.Id,
+                                    (i, c) => new ToDoList { Category = c, ToDoListItems = new List<ToDoListItem> { i } })
+                                .ToList();
+            var response = new ToDoListResponse { TodoList = groupedToDoListItems };
+
+            return Ok(new List<ToDoListResponse> { response });
         }
 
         // PUT: api/ToDoCategories/5
