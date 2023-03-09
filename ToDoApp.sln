@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ToDoApp", "client\ToDoApp.njsproj", "{551524DB-2A73-4AE6-98AF-68DE0AC82D31}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackWeekly-ToDoList", "server\HackWeekly-ToDoList.csproj", "{5D0A6BDB-DBA4-4AE5-AB5D-F54A44BB01DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoBackend", "server\ToDoBackend.csproj", "{5D0A6BDB-DBA4-4AE5-AB5D-F54A44BB01DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
