@@ -31,9 +31,9 @@ namespace HackWeekly_ToDoList.Controllers
         }
 
         // GET: api/ToDoCategories/4
-        [Tags("ToDoList")]
+        [Tags("CategoryToDoItems")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<ToDoListResponse>>> GetCategoryItems(int id)
+        public async Task<ActionResult> GetCategoryItems(int id)
         {
             
             var groupedToDoListItems = _context.TodoItems.Where(i => i.CategoryId == id)
@@ -44,7 +44,7 @@ namespace HackWeekly_ToDoList.Controllers
                                 .ToList();
             var response = new ToDoListResponse { TodoList = groupedToDoListItems };
 
-            return Ok(new List<ToDoListResponse> { response });
+            return Ok( response );
         }
 
         // PUT: api/ToDoCategories/5
