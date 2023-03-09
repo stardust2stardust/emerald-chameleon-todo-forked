@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace HackWeekly_ToDoList.Models
 {
@@ -18,7 +20,8 @@ namespace HackWeekly_ToDoList.Models
         public DateTime DueDate { get; set; }
         public string Priority { get; set; }
         public bool IsDone { get; set; }
-        public virtual ToDoCategory Category { get; set; }
+        [ForeignKey(nameof(ToDoCategory.Id))]
+        public virtual int CategoryId { get; set; }
     }
 
     public class ToDoList
@@ -29,6 +32,6 @@ namespace HackWeekly_ToDoList.Models
 
     public class ToDoListResponse
     {
-        public List<ToDoList> TodoList { get; set; }
+        public virtual List<ToDoList> TodoList { get; set; }
     }
 }

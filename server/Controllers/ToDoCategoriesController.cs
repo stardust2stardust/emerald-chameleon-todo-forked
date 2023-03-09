@@ -10,7 +10,8 @@ using HackWeekly_ToDoList.Models;
 
 namespace HackWeekly_ToDoList.Controllers
 {
-    [Route("api/[controller]")]
+    [Tags("Category")]
+    [Route("api/category")]
     [ApiController]
     public class ToDoCategoriesController : ControllerBase
     {
@@ -68,13 +69,15 @@ namespace HackWeekly_ToDoList.Controllers
         [HttpPost]
         public async Task<ActionResult<ToDoCategory>> PostToDoCategory(string name)
         {
+            
             if (name != null)
             {
-                var toDoCategory = new ToDoCategory { Name = name };
+                ToDoCategory toDoCategory = new() { Name = name };
                 _context.Category.Add(toDoCategory);
                 await _context.SaveChangesAsync();
 
-                return toDoCategory;
+                return CreatedAtAction(nameof(GetCategory), new { id = toDoCategory.Id }, toDoCategory);
+
             }
 
             return BadRequest();
