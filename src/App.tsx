@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.scss'
 
-import AddCategory from './components/AddCategory'
+import AddCategory from './components/addCategory/AddCategory'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,7 +15,7 @@ function App() {
         <div className={'counter'}>
           <h2>To Do</h2>
         </div>
-        <div className={'btn-add-category'}>
+        <div className={'add-category-wrapper'}>
           <AddCategory />
         </div>
         <div className={'to-do-wrapper'}></div>
