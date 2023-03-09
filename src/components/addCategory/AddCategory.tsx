@@ -19,14 +19,14 @@ const AddCategory = () => {
     handleClick()
 
     // get value of text input
-    const newCategoryValue = document.getElementById(
+    const newCategoryInput = document.getElementById(
       'new-category-text'
     ) as HTMLInputElement
-    console.log(newCategoryValue.value)
+
     // fetch Category List
 
-    // add Category to exising List ()
-  }
+    // push Category (newCategoryInput.value) to exising List
+}
 
   return (
     <div>
