@@ -1,0 +1,45 @@
+.content {
+  display: flex;
+  gap: 3rem;
+}
+
+$bradius: 5px;
+$otherradius: 100px;
+.sidebar, .category {
+  border-radius: $bradius;
+  padding: 10px;
+}
+.sidebar {
+  border: 1px solid black;
+  position: sticky;
+  top: 3rem;
+  overflow-y: scroll;
+  height: 80vh;
+  scrollbar-width: thin;
+  scrollbar-color: white black;
+  
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: white;
+    border-radius: $bradius;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: $bradius;
+  }
+}
+
+.category {
+  list-style: none;
+  border: 1px solid black;
+  margin: 10px auto;
+  text-align: center;
+  width: 90%;
+  background-color: white;
+}
+
+.active {
+  background-color: grey;
+}

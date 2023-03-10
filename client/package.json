@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview",
-    "watch": "sass --watch src/App.scss src/App.css"
+    "preview": "vite preview"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": "eslint --cache --fix"

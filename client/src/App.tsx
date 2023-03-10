@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [selectedCats, setSelectedCats] = useState([])
 
   return (
     <div className={'main'}>
@@ -12,7 +13,7 @@ function App() {
         <h1>Emerald Chameleons</h1>
       </div>
       <div className={'content'}>
-        <Sidebar />
+        <Sidebar selectedCats={selectedCats} setSelectedCats={setSelectedCats} />
         <div className={'counter'}>
           <h2>To Do</h2>
         </div>
