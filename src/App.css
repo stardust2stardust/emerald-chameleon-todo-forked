@@ -13,9 +13,12 @@
   position: sticky;
   width: 300px;
 }
+
 .category {
   list-style: none;
   border: 1px solid black;
   margin: 10px;
   text-align: center;
 }
+
+/*# sourceMappingURL=App.css.map */

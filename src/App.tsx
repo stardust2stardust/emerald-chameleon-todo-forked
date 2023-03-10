@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.scss'
+import './components/Sidebar'
+import Sidebar from './components/Sidebar'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,6 +12,7 @@ function App() {
         <h1>Emerald Chameleons</h1>
       </div>
       <div className={'content'}>
+        <Sidebar />
         <div className={'counter'}>
           <h2>To Do</h2>
         </div>
