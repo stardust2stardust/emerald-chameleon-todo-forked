@@ -35,7 +35,7 @@ namespace HackWeekly_ToDoList.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetCategoryItems(int id)
         {
-            
+        
             var groupedToDoListItems = _context.TodoItems.Where(i => i.CategoryId == id)
                                 .Join(_context.Category,
                                     i => i.CategoryId,
@@ -44,7 +44,7 @@ namespace HackWeekly_ToDoList.Controllers
                                 .ToList();
             var response = new ToDoListResponse { TodoList = groupedToDoListItems };
 
-            return Ok( response );
+            return Ok(response);
         }
 
         // PUT: api/ToDoCategories/5
@@ -85,20 +85,12 @@ namespace HackWeekly_ToDoList.Controllers
         // POST: api/ToDoCategories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ToDoCategory>> PostToDoCategory(string name)
+        public async Task<ActionResult<ToDoCategory>> PostToDoCategory([FromBody] ToDoCategory toDoCategory)
         {
-            
-            if (name != null)
-            {
-                ToDoCategory toDoCategory = new() { Name = name };
-                _context.Category.Add(toDoCategory);
-                await _context.SaveChangesAsync();
+            _context.Category.Add(toDoCategory);
+            await _context.SaveChangesAsync();
 
-                return CreatedAtAction(nameof(GetCategory), new { id = toDoCategory.Id }, toDoCategory);
-
-            }
-
-            return BadRequest();
+            return CreatedAtAction(nameof(GetCategoryItems), new { id = toDoCategory.Id }, toDoCategory);
         }
 
         // DELETE: api/ToDoCategories/5
