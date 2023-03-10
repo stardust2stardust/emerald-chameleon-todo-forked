@@ -1,6 +1,7 @@
 using HackWeekly_ToDoList.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using Microsoft.AspNetCore.Cors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(
     builder.Configuration.GetConnectionString("HackWeekly"), ServerVersion.AutoDetect(connectionString)
     ));
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +29,13 @@ app.UseSwaggerUI();
 //}
 
 app.UseHttpsRedirection();
+
+app.UseCors(x => x
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            //.WithOrigins("https://localhost:44351")); // Allow only this origin can also have multiple origins seperated with comma
+            .SetIsOriginAllowed(origin => true));// Allow any origin 
 
 app.UseAuthorization();
 
