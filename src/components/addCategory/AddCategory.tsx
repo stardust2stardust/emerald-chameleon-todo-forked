@@ -77,11 +77,11 @@ const AddCategory = () => {
   const addCategoryToArray = async (categoryName: string) => {
     console.log(categoryName)
     const newCategory = {
-      // catId: id,
       name: categoryName,
     }
+    const categoryUrlWithQueryString = `${categoryUrl}?name=${categoryName}`
     try {
-      const response = await fetch(categoryUrl, {
+      const response = await fetch(categoryUrlWithQueryString, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
