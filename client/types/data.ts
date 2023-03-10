@@ -7,7 +7,7 @@ export type Items = {
   id: number
   description: string
   dueDate: string
-  priority: string
+  priority: number
   isDone: boolean
   categoryId: number
 }
