@@ -8,15 +8,12 @@ type categoryObject = {
 }
 
 const AddCategory = () => {
-  // state of Add Category button
+  
   const [isClicked, setIsClicked] = useState(false)
   const [isExistingCategory, setIsExistingCategory] = useState(false)
   const [isOtherError, setIsOtherError] = useState(false)
   const [isEmptyInput, setIsEmptyInput] = useState(false)
 
-  // text input
-
-  // 'https://todobackend20230309204702.azurewebsites.net/api/category' this is the endpoint for Categories.
   //navigating to https://todobackend20230309204702.azurewebsites.net/swagger/index.html will allow you to interrogate all the endpoints in the backend.
 
   const categoryUrl =
@@ -98,26 +95,6 @@ const AddCategory = () => {
       console.log(error)
     }
   }
-
-  // <<<<<<<<<<<<<<<<<<<<<<<<<
-  ///Travis Comments>>>
-  ///So we should be able to rely on our backend/database to ensure data integrity, 
-  ///which means we can be confident that if we make a POST operation with duplicate data
-  ///the http request will return an error response for us to handle, ideally with a nice error message
-  ///for us to handle in the case of a data validation error.
-  //ex: (feel free to use any httprequest handler, there may be one preferred for use with React, idk)
-
-  // const todoCategoryUrl = 'http://https://todobackend20230309204702.azurewebsites.net/api/ToDoCategories/api/ToDoCategories'
-  // const newCategoryPayload = {
-  // Name: name
-  //};
-  // axios.post(todoCategoryUrl, newCategoryPayload)
-  //   .then() - handle what you want to do here (updating the display)
-  //   .catch(error) - the category was not written to the db, handle what to do in that case here
-  // !!There could be many reasons the HTTP request fails, "bonus points" if you display a message to the user the category already exists 
-  // and a generic error message for any other error (like the backend service being down, backend has no connection to db, etc...). 
-  // "Exception handling is the difference between good programmers and *exceptional* programmers".
-  // >>>>>>>>>>>>>>>>>>>>>>>>>>
 
   return (
     <div>
