@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './_addCategory.scss'
 
 // type Props = {}
@@ -7,6 +7,7 @@ import './_addCategory.scss'
 const AddCategory = () => {
   // state of Add Category button
   const [isClicked, setIsClicked] = useState(false)
+  const [categoryList, setCategoryList] = useState([])
 
   // isClicked state changes when clicking on Add Category, Ok, or Cancel buttons
   const handleClick = () => {
@@ -23,10 +24,19 @@ const AddCategory = () => {
       'new-category-text'
     ) as HTMLInputElement
 
-    // fetch Category List
+    const categoryToAdd: string = newCategoryInput.value
 
-    // push Category (newCategoryInput.value) to exising List
-}
+    // fetch Category List
+    async function fetchCategoryList() {
+      const response = await fetch('https://jsonplaceholder.typicode.com/users') // test api
+      const data = await response.json()
+      console.log(data)
+      return data
+    }
+    fetchCategoryList()
+
+    // add Category (newCategoryInput.value) to existing List
+  }
 
   return (
     <div>
