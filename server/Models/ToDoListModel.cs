@@ -20,8 +20,7 @@ namespace HackWeekly_ToDoList.Models
         public DateTime DueDate { get; set; }
         public string Priority { get; set; }
         public bool IsDone { get; set; }
-        [ForeignKey(nameof(ToDoCategory.Id))]
-        public virtual int CategoryId { get; set; }
+        public ToDoCategory Category { get; set; }
     }
 
     public class Priority
