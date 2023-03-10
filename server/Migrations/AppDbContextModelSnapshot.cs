@@ -74,20 +74,7 @@ namespace HackWeekly_ToDoList.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("TodoItems");
-                });
-
-            modelBuilder.Entity("HackWeekly_ToDoList.Models.ToDoListItem", b =>
-                {
-                    b.HasOne("HackWeekly_ToDoList.Models.ToDoCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

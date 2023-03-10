@@ -35,13 +35,13 @@ namespace HackWeekly_ToDoList.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetCategoryItems(int id)
         {
-            var groupedToDoListItems = _context.TodoItems.Where(i => i.Category.Id == id)
-                                .Include(i => i.Category) // Include the related ToDoCategory entity
-                                .ToList()
-                                .GroupBy(i => i.Category) // Group by ToDoCategory
-                                .Select(g => new ToDoList { Category = g.Key, ToDoListItems = g.ToList() })
+            
+            var groupedToDoListItems = _context.TodoItems.Where(i => i.CategoryId == id)
+                                .Join(_context.Category,
+                                    i => i.CategoryId,
+                                    c => c.Id,
+                                    (i, c) => new ToDoList { Category = c, ToDoListItems = new List<ToDoListItem> { i } })
                                 .ToList();
-
             var response = new ToDoListResponse { TodoList = groupedToDoListItems };
 
             return Ok( response );
