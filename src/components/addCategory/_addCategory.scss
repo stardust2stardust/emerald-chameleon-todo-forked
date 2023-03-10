@@ -28,9 +28,11 @@ $primary-700: #124559;
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    max-width: 300px;
+    width: 300px;
+    min-height: 200px;
     gap: 1rem;
     align-items: center;
+    justify-content: center;
     background-color: $primary-700;
 }
 
@@ -41,4 +43,9 @@ $primary-700: #124559;
 
 #new-category-text {
     font-size: 1.2rem;
+}
+
+.error-message {
+    color: orange;
+    font-size: 1rem;
 }
