@@ -1,10 +1,13 @@
 export type Categories = {
-  catId: number
+  id: number
   name: string
 }
 
 export type Items = {
-  itemId: number
-  name: string
-  priority: number
+  id: number
+  description: string
+  dueDate: string
+  priority: string
+  isDone: boolean
+  categoryId: number
 }

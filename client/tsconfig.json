@@ -32,6 +32,10 @@
     "**/*.jsx",
     "**/*.json"
   ],
+  "baseUrl": "./src",
+  "paths": {
+      "@components/*": ["./src/components/*"]
+  },
   "exclude": [
     "node_modules"
   ]
