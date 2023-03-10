@@ -56,22 +56,24 @@ const ToDoList = (props: ListProps) => {
 
   const Items = () => {
     const categoryElement = selectedCategories.map((category) => {
-      const elements = selectedItems.map((item) => {
-        if (item.categoryId !== category.id) return
-        return (
-          <div
-            key={item.id}
-            className="listItem"
-            ref={(ref) => {
-              if (ref === null) return
-              ListItem.current.push(ref)
-            }}
-          >
-            <h2 className="description">{item.description}</h2>
-            <h2 className="dueDate">{item.dueDate}</h2>
-          </div>
-        )
-      })
+      const elements = selectedItems
+        .sort((a, b) => a.priority - b.priority)
+        .map((item) => {
+          if (item.categoryId !== category.id) return
+          return (
+            <div
+              key={item.id}
+              className="listItem"
+              ref={(ref) => {
+                if (ref === null) return
+                ListItem.current.push(ref)
+              }}
+            >
+              <h2 className="description">{item.description}</h2>
+              <h2 className="dueDate">{item.dueDate}</h2>
+            </div>
+          )
+        })
       return (
         <div className="category" key={category.id}>
           <h2 className="categoryName">{category.name}</h2>
