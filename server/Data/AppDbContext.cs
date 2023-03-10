@@ -14,6 +14,7 @@ namespace HackWeekly_ToDoList.Data
 
         public DbSet<ToDoCategory> Category { get; set; }
         public DbSet<ToDoListItem> TodoItems { get; set; }
+        public DbSet<Priority> Priority { get; set; }
 
     }
 }
