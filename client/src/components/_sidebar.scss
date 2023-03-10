@@ -5,6 +5,7 @@
 
 $bradius: 5px;
 $otherradius: 100px;
+
 .sidebar, .category {
   border-radius: $bradius;
   padding: 10px;
@@ -17,6 +18,7 @@ $otherradius: 100px;
   height: 80vh;
   scrollbar-width: thin;
   scrollbar-color: white black;
+  text-align: center;
   
   &::-webkit-scrollbar {
     width: 5px;
@@ -32,11 +34,10 @@ $otherradius: 100px;
 }
 
 .category {
-  list-style: none;
   border: 1px solid black;
   margin: 10px auto;
   text-align: center;
-  width: 90%;
+  width: 100%;
   background-color: white;
 }
 

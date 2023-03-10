@@ -6,11 +6,14 @@ const dbstring = 'https://todobackend20230309204702.azurewebsites.net/api/catego
 // const dbstring = 'https://dummyjson.com/products/categories'
 
 type SidebarProps = {
-  selectedCats: string[]
-  setSelectedCats: (val: string[]) => void
+  selectedCategories: string[]
+  setSelectedCategories: (val: string[]) => void
 }
 
-export default function Sidebar({ selectedCats, setSelectedCats }: SidebarProps) {
+export default function Sidebar({
+  selectedCategories,
+  setSelectedCategories,
+}: SidebarProps) {
   const [categories, setCategories] = useState<Categories[]>([])
   const allButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -25,25 +28,26 @@ export default function Sidebar({ selectedCats, setSelectedCats }: SidebarProps)
   }, [])
 
   useEffect(() => {
-    console.log(selectedCats)
-  }, [selectedCats])
+    console.log(selectedCategories)
+  }, [selectedCategories])
 
   function filterCategories(e: React.MouseEvent<HTMLButtonElement>) {
     const target = e.target as HTMLButtonElement
     if (target.id === 'category-all') {
-      setSelectedCats(categories.map((cat) => cat.name))
+      setSelectedCategories(categories.map((cat) => cat.name))
       target.classList.add('active')
-    } else if (selectedCats.includes(target.id)) {
-      setSelectedCats(selectedCats.filter((cat) => cat !== target.id))
+    } else if (selectedCategories.includes(target.id)) {
+      setSelectedCategories(selectedCategories.filter((cat) => cat !== target.id))
       allButtonRef.current?.classList.remove('active')
     } else {
-      setSelectedCats([...selectedCats, target.id])
+      setSelectedCategories([...selectedCategories, target.id])
       allButtonRef.current?.classList.remove('active')
     }
   }
 
   return (
-    <ul className="sidebar">
+    <nav className="sidebar">
+      <h2>Categories</h2>
       <button
         className="category"
         id="category-all"
@@ -58,7 +62,7 @@ export default function Sidebar({ selectedCats, setSelectedCats }: SidebarProps)
             <button
               key={cat.name}
               className={`category ${
-                selectedCats.includes(cat.name) ? 'active' : ''
+                selectedCategories.includes(cat.name) ? 'active' : ''
               }`}
               onClick={filterCategories}
               id={cat.name}
@@ -67,6 +71,6 @@ export default function Sidebar({ selectedCats, setSelectedCats }: SidebarProps)
             </button>
           )
       })}
-    </ul>
+    </nav>
   )
 }
