@@ -24,6 +24,13 @@ namespace HackWeekly_ToDoList.Models
         public virtual int CategoryId { get; set; }
     }
 
+    public class Priority
+    {
+        [Key] 
+        public int PId { get; set; }
+        public string Description { get; set; }
+    }
+
     public class ToDoList
     {
         public virtual ToDoCategory Category { get; set; }
