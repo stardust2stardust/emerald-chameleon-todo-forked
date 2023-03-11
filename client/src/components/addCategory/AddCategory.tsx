@@ -8,11 +8,11 @@ type categoryObject = {
 }
 
 const AddCategory = () => {
-  
   const [isClicked, setIsClicked] = useState(false)
   const [isExistingCategory, setIsExistingCategory] = useState(false)
   const [isOtherError, setIsOtherError] = useState(false)
   const [isEmptyInput, setIsEmptyInput] = useState(false)
+  const [isAddedToList, setIsAddedToList] = useState(false)
 
   //navigating to https://todobackend20230309204702.azurewebsites.net/swagger/index.html will allow you to interrogate all the endpoints in the backend.
 
@@ -24,6 +24,13 @@ const AddCategory = () => {
     setIsClicked(!isClicked)
   }
 
+  const clearInput = () => {
+    const newCategoryInput = document.getElementById(
+      'new-category-text'
+    ) as HTMLInputElement
+    newCategoryInput.value = ''
+  }
+
   const handleCancelClick = () => {
     setIsExistingCategory(false)
     setIsOtherError(false)
@@ -31,7 +38,7 @@ const AddCategory = () => {
     const newCategoryInput = document.getElementById(
       'new-category-text'
     ) as HTMLInputElement
-    newCategoryInput.value = ''
+    clearInput()
   }
 
   const getCategoryName = () => {
@@ -43,46 +50,34 @@ const AddCategory = () => {
       console.log('please enter a category name')
       setIsEmptyInput(true)
     } else {
-      addNewCategory(categoryName)
+      addCategoryToArray(categoryName)
     }
   }
 
-  const addNewCategory = async (newCategoryName: string) => {
-    try {
-      const response = await fetch(categoryUrl)
-      console.log(response)
-      const categoryObjArray = await response.json()
-      console.log(categoryObjArray)
-      categoryObjArray.map((obj: categoryObject) => {
-        if (obj.name.toLowerCase() === newCategoryName.toLowerCase()) {
-          console.log('that Category exists already')
-          setIsExistingCategory(true)
-        } 
-        // Left this for Jeni to see, you can remove it after
-        // This was creating creating more than one object which is why when you fetched the array it came up showing more than one
-        /** else {
-          addCategoryToArray(newCategoryName)
-        } */
-      })
-      if (!response.ok) {
-        console.log('Could not get data')
-        setIsOtherError(true)
-        return
-      }
-      // Should now create object only once
-      // The 400+ old objects created are still going to show up so just have to ask mlancer to delete them
-      addCategoryToArray(newCategoryName) // removed from categoryObjArray.map
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const addNewCategory = async (newCategoryName: string) => {
+  //   try {
+  //     const response = await fetch(categoryUrl)
+  //     const categoryObjArray = await response.json()
+  //     // check
+  //     categoryObjArray.map((obj: categoryObject) => {
+  //       if (obj.name.toLowerCase() === newCategoryName.toLowerCase()) {
+  //         console.log('that Category exists already')
+  //         setIsExistingCategory(true)
+  //       }
+  //     })
+
+  //     addCategoryToArray(newCategoryName)
+  //   } catch (error) {
+  //     console.log('catch error: ', error)
+  //   }
+  // }
 
   const addCategoryToArray = async (categoryName: string) => {
     console.log(categoryName)
     const newCategory = {
       name: categoryName,
     }
-    const categoryUrlWithQueryString = `${categoryUrl}?name=${categoryName}`
+    const categoryUrlWithQueryString = `${categoryUrl}`
     try {
       const response = await fetch(categoryUrlWithQueryString, {
         method: 'POST',
@@ -91,11 +86,16 @@ const AddCategory = () => {
         },
         body: JSON.stringify(newCategory),
       })
-
-      if (!response.ok) {
-        console.log('error in POST fetch')
+      if (response.status === 409) {
+        setIsExistingCategory(true)
+        setIsEmptyInput(false)
+      } else if (!response.ok) {
+        console.log('other error')
         setIsOtherError(true)
-        return
+      } else {
+        console.log('New Category Added')
+        setIsAddedToList(true)
+        clearInput()
       }
     } catch (error) {
       console.log(error)
@@ -116,6 +116,9 @@ const AddCategory = () => {
             {isOtherError && (
               <p>Uh oh! There is a connection issue to the server. :/</p>
             )}
+          </div>
+          <div className="success-message">
+            {isAddedToList && <p>Category added to list! </p>}
           </div>
           <input id="new-category-text" type="text" />
           <div className="new-category-input-buttons">
