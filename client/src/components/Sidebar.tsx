@@ -7,7 +7,7 @@ const dbstring = 'https://todobackend20230309204702.azurewebsites.net/api/catego
 
 type SidebarProps = {
   selectedCategories: string[]
-  setSelectedCategories: (val: string[]) => void
+  setSelectedCategories: (value: string[]) => void
 }
 
 export default function Sidebar({

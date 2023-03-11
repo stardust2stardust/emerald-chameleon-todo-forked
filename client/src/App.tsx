@@ -13,7 +13,10 @@ function App() {
         <h1>Emerald Chameleons</h1>
       </div>
       <div className={'content'}>
-        <Sidebar selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
+        <Sidebar
+          selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}
+        />
         <div className={'counter'}>
           <h2>To Do</h2>
         </div>
