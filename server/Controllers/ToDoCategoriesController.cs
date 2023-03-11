@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HackWeekly_ToDoList.Data;
 using HackWeekly_ToDoList.Models;
 using NuGet.Protocol;
+using NuGet.Protocol.Plugins;
 
 namespace HackWeekly_ToDoList.Controllers
 {
@@ -35,7 +36,7 @@ namespace HackWeekly_ToDoList.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetCategoryItems(int id)
         {
-            
+
             var groupedToDoListItems = _context.TodoItems.Where(i => i.CategoryId == id)
                                 .Join(_context.Category,
                                     i => i.CategoryId,
@@ -44,23 +45,27 @@ namespace HackWeekly_ToDoList.Controllers
                                 .ToList();
             var response = new ToDoListResponse { TodoList = groupedToDoListItems };
 
-            return Ok( response );
+            return Ok(response);
         }
 
         // PUT: api/ToDoCategories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<ToDoCategory>> PutToDoCategory(int id, string name)
+        public async Task<ActionResult<ToDoCategory>> PutToDoCategory(int id, ToDoCategory toDoCategory)
         {
-            //var toDoCategory = new ToDoCategory();
-            var toDoCategory = _context.Category.Where(x => x.Id == id).FirstOrDefault();
-            toDoCategory.Name = name;
-            if (id != toDoCategory.Id)
+            if (ToDoCategoryNameExists(toDoCategory.Name))
+            {
+                var response = "Duplicates Not Allowed";
+                return Conflict(response);
+            }
+            ToDoCategory toDoCategory1 = _context.Category.Where(x => x.Id == id).FirstOrDefault();
+            toDoCategory1.Name = toDoCategory.Name;
+            if (id != toDoCategory1.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(toDoCategory).State = EntityState.Modified;
+            _context.Entry(toDoCategory1).State = EntityState.Modified;
 
             try
             {
@@ -85,20 +90,18 @@ namespace HackWeekly_ToDoList.Controllers
         // POST: api/ToDoCategories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ToDoCategory>> PostToDoCategory(string name)
+        public async Task<ActionResult<ToDoCategory>> PostToDoCategory([FromBody] ToDoCategory toDoCategory)
         {
-            
-            if (name != null)
+            if (ToDoCategoryNameExists(toDoCategory.Name))
             {
-                ToDoCategory toDoCategory = new() { Name = name };
-                _context.Category.Add(toDoCategory);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction(nameof(GetCategory), new { id = toDoCategory.Id }, toDoCategory);
-
+                var response = "Duplicates Not Allowed"; 
+                return Conflict(response);
             }
 
-            return BadRequest();
+            _context.Category.Add(toDoCategory);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetCategoryItems), new { id = toDoCategory.Id }, toDoCategory);
         }
 
         // DELETE: api/ToDoCategories/5
@@ -120,6 +123,11 @@ namespace HackWeekly_ToDoList.Controllers
         private bool ToDoCategoryExists(int id)
         {
             return _context.Category.Any(e => e.Id == id);
+        }
+
+        private bool ToDoCategoryNameExists(string name)
+        {
+            return _context.Category.Any(n => n.Name == name);
         }
     }
 }
