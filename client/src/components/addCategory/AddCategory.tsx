@@ -52,13 +52,11 @@ const AddCategory = () => {
   }
 
   const addCategoryToArray = async (categoryName: string) => {
-    console.log(categoryName)
     const newCategory = {
       name: categoryName,
     }
-    const categoryUrlWithQueryString = `${categoryUrl}`
     try {
-      const response = await fetch(categoryUrlWithQueryString, {
+      const response = await fetch(categoryUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +90,7 @@ const AddCategory = () => {
           </div>
           <div className="error-message">
             {isOtherError && (
-              <p>Uh oh! There is a connection issue to the server. :/</p>
+              <p>Uh oh! There is an issue connecting to the server.</p>
             )}
           </div>
           <div className="success-message">
