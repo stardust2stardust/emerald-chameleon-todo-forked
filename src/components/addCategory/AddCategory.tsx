@@ -57,15 +57,21 @@ const AddCategory = () => {
         if (obj.name.toLowerCase() === newCategoryName.toLowerCase()) {
           console.log('that Category exists already')
           setIsExistingCategory(true)
-        } else {
+        } 
+        // Left this for Jeni to see, you can remove it after
+        // This was creating creating more than one object which is why when you fetched the array it came up showing more than one
+        /** else {
           addCategoryToArray(newCategoryName)
-        }
+        } */
       })
       if (!response.ok) {
         console.log('Could not get data')
         setIsOtherError(true)
         return
       }
+      // Should now create object only once
+      // The 400+ old objects created are still going to show up so just have to ask mlancer to delete them
+      addCategoryToArray(newCategoryName) // removed from categoryObjArray.map
     } catch (error) {
       console.log(error)
     }
