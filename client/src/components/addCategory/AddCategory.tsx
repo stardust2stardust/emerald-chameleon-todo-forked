@@ -2,11 +2,6 @@ import React from 'react'
 import { useState } from 'react'
 import './_addCategory.scss'
 
-type categoryObject = {
-  id: number
-  name: string
-}
-
 const AddCategory = () => {
   const [isClicked, setIsClicked] = useState(false)
   const [isExistingCategory, setIsExistingCategory] = useState(false)
