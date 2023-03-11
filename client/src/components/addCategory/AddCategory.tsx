@@ -35,9 +35,6 @@ const AddCategory = () => {
     setIsExistingCategory(false)
     setIsOtherError(false)
     setIsClicked(!isClicked)
-    const newCategoryInput = document.getElementById(
-      'new-category-text'
-    ) as HTMLInputElement
     clearInput()
   }
 
@@ -47,30 +44,12 @@ const AddCategory = () => {
     ) as HTMLInputElement
     const categoryName: string = newCategoryInput.value
     if (categoryName === '' || categoryName === undefined) {
-      console.log('please enter a category name')
       setIsEmptyInput(true)
+      setIsAddedToList(false)
     } else {
       addCategoryToArray(categoryName)
     }
   }
-
-  // const addNewCategory = async (newCategoryName: string) => {
-  //   try {
-  //     const response = await fetch(categoryUrl)
-  //     const categoryObjArray = await response.json()
-  //     // check
-  //     categoryObjArray.map((obj: categoryObject) => {
-  //       if (obj.name.toLowerCase() === newCategoryName.toLowerCase()) {
-  //         console.log('that Category exists already')
-  //         setIsExistingCategory(true)
-  //       }
-  //     })
-
-  //     addCategoryToArray(newCategoryName)
-  //   } catch (error) {
-  //     console.log('catch error: ', error)
-  //   }
-  // }
 
   const addCategoryToArray = async (categoryName: string) => {
     console.log(categoryName)
@@ -86,15 +65,14 @@ const AddCategory = () => {
         },
         body: JSON.stringify(newCategory),
       })
-      if (response.status === 409) {
+      if (response.status === 409) { // duplicate category name error
         setIsExistingCategory(true)
         setIsEmptyInput(false)
-      } else if (!response.ok) {
-        console.log('other error')
+      } else if (!response.ok) {  // any other error
         setIsOtherError(true)
       } else {
-        console.log('New Category Added')
         setIsAddedToList(true)
+        setIsExistingCategory(false)
         clearInput()
       }
     } catch (error) {
