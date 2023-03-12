@@ -1,21 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Newtonsoft.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 
 namespace HackWeekly_ToDoList.Models
 {
+    [Index(nameof(Name), IsUnique = true)]
     public class ToDoCategory
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public string Name { get; set; }
     }
 
     public class ToDoListItem
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public string Description { get; set; }
         public DateTime DueDate { get; set; }
         public string Priority { get; set; }

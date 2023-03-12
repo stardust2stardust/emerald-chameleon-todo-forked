@@ -1,78 +1,109 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
-import './_addCategory.scss'
-
-// type Props = {}
+import { useState } from 'react'
+import '../css/_addCategory.scss'
 
 const AddCategory = () => {
-  // state of Add Category button
   const [isClicked, setIsClicked] = useState(false)
-  const [categoryList, setCategoryList] = useState([])
+  const [isExistingCategory, setIsExistingCategory] = useState(false)
+  const [isOtherError, setIsOtherError] = useState(false)
+  const [isEmptyInput, setIsEmptyInput] = useState(false)
+  const [isAddedToList, setIsAddedToList] = useState(false)
+
+  //navigating to https://todobackend20230309204702.azurewebsites.net/swagger/index.html will allow you to interrogate all the endpoints in the backend.
+
+  const categoryUrl =
+    'https://todobackend20230309204702.azurewebsites.net/api/category'
 
   // isClicked state changes when clicking on Add Category, Ok, or Cancel buttons
   const handleClick = () => {
-    console.log('you clicked a button')
     setIsClicked(!isClicked)
   }
 
-  const addToCategoryList = () => {
-        ///Travis Comments>>>
-    ///So we should be able to rely on our backend/database to ensure data integrity, 
-    ///which means we can be confident that if we make a POST operation with duplicate data
-    ///the http request will return an error response for us to handle, ideally with a nice error message
-    ///for us to handle in the case of a data validation error.
-
-    //ex: (feel free to use any httprequest handler, there may be one preferred for use with React, idk)
-    
-    // const todoCategoryUrl = 'http://https://todobackend20230309204702.azurewebsites.net/api/ToDoCategories/api/ToDoCategories'
-    // const newCategoryPayload = {
-    // Name: name
-    //};
-    // axios.post(todoCategoryUrl, newCategoryPayload)
-    //   .then() - handle what you want to do here (updating the display)
-    //   .catch(error) - the category was not written to the db, handle what to do in that case here 
-    // !!There could be many reasons the HTTP request fails, "bonus points" if you display a message to the user the category already exists 
-    // and a generic error message for any other error (like the backend service being down, backend has no connection to db, etc...). 
-    // "Exception handling is the difference between good programmers and *exceptional* programmers".
-    console.log('you clicked Ok')
-    handleClick()
-
-    // get value of text input
+  const clearInput = () => {
     const newCategoryInput = document.getElementById(
       'new-category-text'
     ) as HTMLInputElement
+    newCategoryInput.value = ''
+  }
 
-    const categoryToAdd: string = newCategoryInput.value
+  const handleCancelClick = () => {
+    setIsExistingCategory(false)
+    setIsOtherError(false)
+    setIsClicked(!isClicked)
+    clearInput()
+  }
 
-    // fetch Category List
-    
-    async function fetchCategoryList() {
-      const response = await fetch('https://todobackend20230309204702.azurewebsites.net/api/ToDoCategories') //this is the endpoint for Categories. 
-      //navigating to https://todobackend20230309204702.azurewebsites.net/swagger/index.html will allow you to interrogate all the endpoints in the backend.
-      const data = await response.json()
-      console.log(data)
-      return data
+  const getCategoryName = () => {
+    const newCategoryInput = document.getElementById(
+      'new-category-text'
+    ) as HTMLInputElement
+    const categoryName: string = newCategoryInput.value
+    if (categoryName === '' || categoryName === undefined) {
+      setIsEmptyInput(true)
+      setIsAddedToList(false)
+    } else {
+      addCategoryToArray(categoryName)
     }
-    fetchCategoryList()
+  }
 
-    // add Category (newCategoryInput.value) to existing List
+  const addCategoryToArray = async (categoryName: string) => {
+    const newCategory = {
+      name: categoryName,
+    }
+    try {
+      const response = await fetch(categoryUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newCategory),
+      })
+      if (response.status === 409) {
+        // duplicate category name error
+        setIsExistingCategory(true)
+        setIsEmptyInput(false)
+      } else if (!response.ok) {
+        // any other error
+        setIsOtherError(true)
+      } else {
+        setIsAddedToList(true)
+        setIsExistingCategory(false)
+        clearInput()
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
-    <div>
+    <>
       {isClicked ? (
         <div className="new-category-input-wrapper">
+          <div className="error-message">
+            {isExistingCategory && <p>That category already exists.</p>}
+          </div>
+          <div className="error-message">
+            {isEmptyInput && <p>Please enter a category name.</p>}
+          </div>
+          <div className="error-message">
+            {isOtherError && (
+              <p>Uh oh! There is an issue connecting to the server.</p>
+            )}
+          </div>
+          <div className="success-message">
+            {isAddedToList && <p>Category added to list! </p>}
+          </div>
           <input id="new-category-text" type="text" />
           <div className="new-category-input-buttons">
             <button
               id="okBtn"
               className="btn-ok"
-              onClick={addToCategoryList}
+              onClick={getCategoryName}
               type="submit"
             >
               Ok
             </button>
-            <button className="btn-cancel" onClick={handleClick}>
+            <button className="btn-cancel" onClick={handleCancelClick}>
               Cancel
             </button>
           </div>
@@ -84,7 +115,7 @@ const AddCategory = () => {
           </button>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

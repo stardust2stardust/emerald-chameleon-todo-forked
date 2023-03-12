@@ -1,0 +1,10 @@
+@use './components/css/variables' as v;
+
+button {
+  border-radius: v.$bradius;
+}
+
+.content {
+  display: flex;
+  gap: 3rem;
+}

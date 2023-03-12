@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import './App.scss'
 import type { Categories, Items } from '../types/data'
+import './components/sidebar/Sidebar'
+
 import AddCategory from './components/addCategory/AddCategory'
 import ToDoList from './components/toDoList/ToDoList'
 import Sidebar from './components/sidebar/Sidebar'
@@ -62,9 +64,9 @@ function App() {
         <div className={'counter'}>
           <ToDoList selectedCategories={cats} selectedItems={test} />
         </div>
-        <div className={'add-category-wrapper'}>
+        {/* <div className={'add-category-wrapper'}>
           <AddCategory />
-        </div>
+        </div> */}
         <div className={'to-do-wrapper'}></div>
       </div>
     </div>
