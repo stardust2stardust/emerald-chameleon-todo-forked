@@ -30,12 +30,14 @@
     width: 2px;
   }
   &::-webkit-scrollbar-track {
-    // background: v.$neutral-300;
-    background: #6bc625;
+    background: v.$neutral-200;
+    // background: #6bc625;
+    // background: v.$primary-700;
     border-radius: v.$bradius;
   }
   &::-webkit-scrollbar-thumb {
-    background: v.$neutral-200;
+    background: v.$neutral-300;
+    // background: #6bc625;
     border-radius: v.$bradius;
   }
 }
