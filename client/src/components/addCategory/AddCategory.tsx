@@ -74,7 +74,7 @@ const AddCategory = () => {
   }
 
   return (
-    <div>
+    <>
       {isClicked ? (
         <div className="new-category-input-wrapper">
           <div className="error-message">
@@ -113,7 +113,7 @@ const AddCategory = () => {
           </button>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

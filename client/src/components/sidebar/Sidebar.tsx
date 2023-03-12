@@ -49,32 +49,32 @@ export default function Sidebar({
   return (
     <nav className="sidebar">
       <h2>Categories</h2>
-      <button
-        className="category"
-        id="category-all"
-        onClick={filterCategories}
-        ref={allButtonRef}
-      >
-        All
-      </button>
-      {categories.map((cat, i) => {
-        if (i < 10)
-          return (
-            <button
-              key={cat.name}
-              className={`category ${
-                selectedCategories.includes(cat.name) ? 'active' : ''
-              }`}
-              onClick={filterCategories}
-              id={cat.name}
-            >
-              {cat.name}
-            </button>
-          )
-      })}
-      {/* <div className={'add-category-wrapper'}> */}
+      <div className="category-list">
+        <button
+          className="category"
+          id="category-all"
+          onClick={filterCategories}
+          ref={allButtonRef}
+        >
+          All
+        </button>
+        {categories.map((cat, i) => {
+          if (i < 10)
+            return (
+              <button
+                key={cat.name}
+                className={`category ${
+                  selectedCategories.includes(cat.name) ? 'active' : ''
+                }`}
+                onClick={filterCategories}
+                id={cat.name}
+              >
+                {cat.name}
+              </button>
+            )
+        })}
+      </div>
       <AddCategory />
-      {/* </div> */}
     </nav>
   )
 }

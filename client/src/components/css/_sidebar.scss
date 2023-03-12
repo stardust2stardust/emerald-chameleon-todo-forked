@@ -1,42 +1,50 @@
 @use 'variables' as v;
 
-.sidebar, .category {
-  // border-radius: v.$bradius;
-  padding: 10px;
-}
 .sidebar {
+  display: flex;
+  flex-direction: column;
   border: 1px solid black;
   position: sticky;
   top: 3rem;
-  overflow-y: scroll;
   height: 80vh;
-  scrollbar-width: thin;
-  scrollbar-color: v.$neutral-300 v.$neutral-200;
   text-align: center;
   width: 20vw;
   background-color: v.$primary-700;
   border-radius: v.$bradius;
-  
+  container-type: size;
+
+  h2 {
+    color: v.$neutral-200;
+  }
+}
+
+.category-list {
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: v.$neutral-300 v.$neutral-200;
+  padding: 0 0.6em;
+  margin: 0;
+  // background-color: v.$primary-700;
+  // height: 80%;
+
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 2px;
   }
   &::-webkit-scrollbar-track {
-    background: v.$neutral-300;
+    // background: v.$neutral-300;
+    background: #6bc625;
     border-radius: v.$bradius;
   }
   &::-webkit-scrollbar-thumb {
     background: v.$neutral-200;
     border-radius: v.$bradius;
   }
-  h2 {
-    color: v.$neutral-200;
-  }
 }
 
 .category {
   border: 1px solid black;
-  margin: 10px auto;
-  text-align: center;
+  margin: 0.6em auto;
+  padding: 0.6em;
   width: 100%;
   background-color: v.$neutral-200;
 }
