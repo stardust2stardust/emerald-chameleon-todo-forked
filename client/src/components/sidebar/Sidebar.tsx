@@ -3,46 +3,51 @@ import { Categories } from '../../../types/data'
 import '../css/_sidebar.scss'
 import AddCategory from '../addCategory/AddCategory'
 
-const dbstring = 'https://todobackend20230309204702.azurewebsites.net/api/category'
 // const dbstring = 'https://dummyjson.com/products/categories'
 
 type SidebarProps = {
-  selectedCategories: string[]
-  setSelectedCategories: (value: string[]) => void
+  selectedCategories: Categories[]
+  setSelectedCategories: (value: Categories[]) => void
+  categories: Categories[]
 }
 
-export default function Sidebar({
-  selectedCategories,
-  setSelectedCategories,
-}: SidebarProps) {
-  const [categories, setCategories] = useState<Categories[]>([])
+export default function Sidebar(props: SidebarProps) {
+  const { selectedCategories, setSelectedCategories, categories } = props
   const allButtonRef = useRef<HTMLButtonElement>(null)
 
-  useEffect(() => {
-    fetch(dbstring)
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data)
-        console.log(data)
-      })
-      .catch((err) => console.log(err))
-  }, [])
+  function addActiveClass(target: HTMLElement) {
+    target.classList.add('active')
+  }
 
-  useEffect(() => {
-    console.log(selectedCategories)
-  }, [selectedCategories])
+  function removeActiveClass(target: HTMLElement) {
+    target.classList.remove('active')
+  }
 
   function filterCategories(e: React.MouseEvent<HTMLButtonElement>) {
     const target = e.target as HTMLButtonElement
-    if (target.id === 'category-all') {
-      setSelectedCategories(categories.map((cat) => cat.name))
-      target.classList.add('active')
-    } else if (selectedCategories.includes(target.id)) {
-      setSelectedCategories(selectedCategories.filter((cat) => cat !== target.id))
-      allButtonRef.current?.classList.remove('active')
+    if (target.classList.contains('active')) {
+      removeActiveClass(target)
+      const newCategories = selectedCategories.filter(
+        (cat) => cat.name !== target.id
+      )
+      setSelectedCategories(newCategories)
     } else {
-      setSelectedCategories([...selectedCategories, target.id])
-      allButtonRef.current?.classList.remove('active')
+      addActiveClass(target)
+      const newCategories = selectedCategories.concat(
+        categories.filter((cat) => cat.name === target.id)
+      )
+      setSelectedCategories(newCategories)
+    }
+  }
+
+  const HandleAllFilter = () => {
+    const allButtons = document.querySelectorAll('.category-sidebar')
+    if (selectedCategories.length === categories.length) {
+      allButtons.forEach((button) => removeActiveClass(button as HTMLElement))
+      setSelectedCategories([])
+    } else {
+      allButtons.forEach((button) => addActiveClass(button as HTMLElement))
+      setSelectedCategories(categories)
     }
   }
 
@@ -51,9 +56,9 @@ export default function Sidebar({
       <h2>Categories</h2>
       <div className="category-list">
         <button
-          className="category"
+          className="category-sidebar"
           id="category-all"
-          onClick={filterCategories}
+          onClick={HandleAllFilter}
           ref={allButtonRef}
         >
           All
@@ -63,8 +68,8 @@ export default function Sidebar({
             return (
               <button
                 key={cat.name}
-                className={`category ${
-                  selectedCategories.includes(cat.name) ? 'active' : ''
+                className={`category-sidebar ${
+                  selectedCategories.includes(cat) ? 'active' : ''
                 }`}
                 onClick={filterCategories}
                 id={cat.name}

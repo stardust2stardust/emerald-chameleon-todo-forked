@@ -7,6 +7,9 @@ import AddCategory from './components/addCategory/AddCategory'
 import ToDoList from './components/toDoList/ToDoList'
 import Sidebar from './components/sidebar/Sidebar'
 
+import { useEffect } from 'react'
+const url = 'https://todobackend20230309204702.azurewebsites.net/api/'
+
 //Test Data
 const test: Items[] = [
   {
@@ -47,9 +50,25 @@ const cats: Categories[] = [
 
 function App() {
   const [selectedCategories, setSelectedCategories] = useState<Categories[]>([])
-  const [selectedCategoriesStringArray, setSelectedCategoriesStringArray] = useState<
-    string[]
-  >([])
+  const [categories, setCategories] = useState<Categories[]>([])
+  const [items, setItems] = useState<Items[]>([])
+
+  useEffect(() => {
+    fetch(url + 'category')
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
+  useEffect(() => {
+    fetch(url + 'item')
+      .then((res) => res.json())
+      .then((data) => {
+        setItems(data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
 
   return (
     <div className={'main'}>
@@ -58,11 +77,12 @@ function App() {
       </div>
       <div className={'content'}>
         <Sidebar
-          selectedCategories={selectedCategoriesStringArray}
-          setSelectedCategories={setSelectedCategoriesStringArray}
+          selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}
+          categories={categories}
         />
         <div className={'counter'}>
-          <ToDoList selectedCategories={cats} selectedItems={test} />
+          <ToDoList selectedCategories={selectedCategories} items={items} />
         </div>
         {/* <div className={'add-category-wrapper'}>
           <AddCategory />
