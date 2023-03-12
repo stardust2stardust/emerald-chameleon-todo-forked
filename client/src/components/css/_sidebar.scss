@@ -1,13 +1,7 @@
-.content {
-  display: flex;
-  gap: 3rem;
-}
-
-$bradius: 5px;
-$otherradius: 100px;
+@use 'variables' as v;
 
 .sidebar, .category {
-  border-radius: $bradius;
+  // border-radius: v.$bradius;
   padding: 10px;
 }
 .sidebar {
@@ -17,20 +11,25 @@ $otherradius: 100px;
   overflow-y: scroll;
   height: 80vh;
   scrollbar-width: thin;
-  scrollbar-color: white black;
+  scrollbar-color: v.$neutral-300 v.$neutral-200;
   text-align: center;
   width: 20vw;
+  background-color: v.$primary-700;
+  border-radius: v.$bradius;
   
   &::-webkit-scrollbar {
     width: 5px;
   }
   &::-webkit-scrollbar-track {
-    background: white;
-    border-radius: $bradius;
+    background: v.$neutral-300;
+    border-radius: v.$bradius;
   }
   &::-webkit-scrollbar-thumb {
-    background: black;
-    border-radius: $bradius;
+    background: v.$neutral-200;
+    border-radius: v.$bradius;
+  }
+  h2 {
+    color: v.$neutral-200;
   }
 }
 
@@ -39,9 +38,9 @@ $otherradius: 100px;
   margin: 10px auto;
   text-align: center;
   width: 100%;
-  background-color: white;
+  background-color: v.$neutral-200;
 }
 
 .active {
-  background-color: grey;
+  background-color: v.$neutral-300;
 }

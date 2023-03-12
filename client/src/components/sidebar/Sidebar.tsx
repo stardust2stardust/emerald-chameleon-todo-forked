@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import { Categories } from '../../types/data'
-import './_sidebar.scss'
+import { Categories } from '../../../types/data'
+import '../css/_sidebar.scss'
+import AddCategory from '../addCategory/AddCategory'
 
 const dbstring = 'https://todobackend20230309204702.azurewebsites.net/api/category'
 // const dbstring = 'https://dummyjson.com/products/categories'
@@ -71,6 +72,9 @@ export default function Sidebar({
             </button>
           )
       })}
+      {/* <div className={'add-category-wrapper'}> */}
+      <AddCategory />
+      {/* </div> */}
     </nav>
   )
 }

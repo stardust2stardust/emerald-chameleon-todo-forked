@@ -48,12 +48,18 @@ namespace HackWeekly_ToDoList.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutToDoListItem(int id, ToDoListItem toDoListItem)
         {
-            if (id != toDoListItem.Id)
+            var toDoListItem1 = _context.TodoItems.Where(x => x.Id == id).FirstOrDefault();
+            toDoListItem1.DueDate = toDoListItem.DueDate;
+            toDoListItem1.IsDone = toDoListItem.IsDone;
+            toDoListItem1.CategoryId = toDoListItem.CategoryId;
+            toDoListItem1.Description = toDoListItem.Description;
+            toDoListItem1.Priority = toDoListItem.Priority;
+            if (id != toDoListItem1.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(toDoListItem).State = EntityState.Modified;
+            _context.Entry(toDoListItem1).State = EntityState.Modified;
 
             try
             {
