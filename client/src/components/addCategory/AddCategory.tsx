@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import './_addCategory.scss'
+import '../css/_addCategory.scss'
 
 const AddCategory = () => {
   const [isClicked, setIsClicked] = useState(false)
@@ -74,7 +74,7 @@ const AddCategory = () => {
   }
 
   return (
-    <div>
+    <>
       {isClicked ? (
         <div className="new-category-input-wrapper">
           <div className="error-message">
@@ -113,7 +113,7 @@ const AddCategory = () => {
           </button>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

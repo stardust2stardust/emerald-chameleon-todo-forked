@@ -1,0 +1,55 @@
+@use 'variables' as v;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  position: sticky;
+  top: 3rem;
+  width: max(25vw, 200px);
+  height: 80vh;
+  text-align: center;
+  background-color: v.$primary-700;
+  border-radius: v.$bradius;
+  container-type: size;
+
+  h2 {
+    color: v.$neutral-200;
+  }
+}
+
+.category-list {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: v.$neutral-300 v.$neutral-200;
+  padding: 0 0.6em;
+  margin: 0;
+  flex-grow: 1;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: v.$neutral-200;
+    // background: #6bc625;
+    // background: v.$primary-700;
+    border-radius: v.$bradius;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: v.$neutral-300;
+    // background: #6bc625;
+    border-radius: v.$bradius;
+  }
+}
+
+.category {
+  border: 1px solid black;
+  margin: 0.6em auto;
+  padding: 0.6em;
+  width: 100%;
+  background-color: v.$neutral-200;
+}
+
+.active {
+  background-color: v.$neutral-300;
+}

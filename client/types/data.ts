@@ -1,10 +1,10 @@
 export type Categories = {
-  catId: number
+  id: number
   name: string
 }
 
 export type Items = {
-  itemId: number
+  id: number
   name: string
   priority: number
 }

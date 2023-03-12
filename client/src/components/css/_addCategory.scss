@@ -1,0 +1,77 @@
+// $neutral-200: #EFF6E0;
+// $neutral-300: #AEC3B0;
+// $primary-700: #124559;
+@use 'variables' as v;
+
+.btn-add-category {
+  background-color: v.$neutral-200;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+}
+
+.btn-ok,
+.btn-cancel {
+  font-size: 1rem;
+  border: none;
+  padding: 0.4rem 1rem;
+  background-color: v.$neutral-200;
+  border: 2px solid v.$neutral-200;
+}
+
+.btn-cancel {
+  background-color: v.$primary-700;
+  border: 2px solid v.$neutral-200;
+  color: v.$neutral-200;
+}
+
+.new-category-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 300px;
+  min-height: 200px;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  background-color: v.$primary-700;
+
+  div:empty {
+    display: none;
+  }
+
+  .sidebar & {
+    width: auto;
+    min-height: auto;
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+.new-category-input-buttons {
+  display: flex;
+  gap: 1rem;
+
+  @container (max-width: 150px) {
+    flex-direction: column;
+    button {
+      width: 80cqw;
+    }
+  }
+}
+
+#new-category-text {
+  font-size: 1.2rem;
+}
+
+.error-message {
+  color: orange;
+  font-size: 1rem;
+}
+
+.success-message {
+  color: v.$neutral-200;
+  font-size: 1.2rem;
+}
