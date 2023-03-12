@@ -73,7 +73,7 @@ function App() {
   return (
     <div className={'main'}>
       <div className={'header'}>
-        <h1>Emerald Chameleons</h1>
+        <h1>Emerald Chameleons Forked</h1>
       </div>
       <div className={'content'}>
         <Sidebar
