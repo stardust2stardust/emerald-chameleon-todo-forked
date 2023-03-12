@@ -6,9 +6,9 @@
   border: 1px solid black;
   position: sticky;
   top: 3rem;
+  width: max(25vw, 200px);
   height: 80vh;
   text-align: center;
-  width: 20vw;
   background-color: v.$primary-700;
   border-radius: v.$bradius;
   container-type: size;
@@ -19,7 +19,7 @@
 }
 
 .category-list {
-  overflow-y: scroll;
+  overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: v.$neutral-300 v.$neutral-200;
   padding: 0 0.6em;
@@ -27,7 +27,7 @@
   flex-grow: 1;
 
   &::-webkit-scrollbar {
-    width: 2px;
+    width: 5px;
   }
   &::-webkit-scrollbar-track {
     background: v.$neutral-200;
