@@ -1,13 +1,55 @@
 import { useState } from 'react'
 import './App.scss'
+import type { Categories, Items } from '../types/data'
 import './components/sidebar/Sidebar'
-import Sidebar from './components/sidebar/Sidebar'
 
 import AddCategory from './components/addCategory/AddCategory'
+import ToDoList from './components/toDoList/ToDoList'
+import Sidebar from './components/sidebar/Sidebar'
+
+//Test Data
+const test: Items[] = [
+  {
+    id: 0,
+    description: 'firstItem',
+    dueDate: 'Never',
+    priority: 1,
+    isDone: false,
+    categoryId: 0,
+  },
+  {
+    id: 1,
+    description: 'secondItem',
+    dueDate: 'Never',
+    priority: 0,
+    isDone: false,
+    categoryId: 0,
+  },
+  {
+    id: 2,
+    description: 'thirdItem',
+    dueDate: 'Never',
+    priority: 0,
+    isDone: false,
+    categoryId: 1,
+  },
+]
+const cats: Categories[] = [
+  {
+    id: 0,
+    name: 'Home',
+  },
+  {
+    id: 1,
+    name: 'Work',
+  },
+]
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [selectedCategories, setSelectedCategories] = useState([])
+  const [selectedCategories, setSelectedCategories] = useState<Categories[]>([])
+  const [selectedCategoriesStringArray, setSelectedCategoriesStringArray] = useState<
+    string[]
+  >([])
 
   return (
     <div className={'main'}>
@@ -16,11 +58,11 @@ function App() {
       </div>
       <div className={'content'}>
         <Sidebar
-          selectedCategories={selectedCategories}
-          setSelectedCategories={setSelectedCategories}
+          selectedCategories={selectedCategoriesStringArray}
+          setSelectedCategories={setSelectedCategoriesStringArray}
         />
         <div className={'counter'}>
-          <h2>To Do</h2>
+          <ToDoList selectedCategories={cats} selectedItems={test} />
         </div>
         {/* <div className={'add-category-wrapper'}>
           <AddCategory />

@@ -5,6 +5,9 @@ export type Categories = {
 
 export type Items = {
   id: number
-  name: string
+  description: string
+  dueDate: string
   priority: number
+  isDone: boolean
+  categoryId: number
 }

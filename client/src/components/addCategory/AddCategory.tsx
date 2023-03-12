@@ -58,10 +58,12 @@ const AddCategory = () => {
         },
         body: JSON.stringify(newCategory),
       })
-      if (response.status === 409) { // duplicate category name error
+      if (response.status === 409) {
+        // duplicate category name error
         setIsExistingCategory(true)
         setIsEmptyInput(false)
-      } else if (!response.ok) {  // any other error
+      } else if (!response.ok) {
+        // any other error
         setIsOtherError(true)
       } else {
         setIsAddedToList(true)
