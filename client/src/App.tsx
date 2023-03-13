@@ -74,6 +74,7 @@ function App() {
     <div className={'main'}>
       <div className={'header'}>
         <h1>Emerald Chameleons Forked</h1>
+        <h2>To Do App</h2>
       </div>
       <div className={'content'}>
         <Sidebar
